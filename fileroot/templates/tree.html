@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>File Root</title>
+
+	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+
+	<script src="/static/jslib/jquery-3.2.1.js"></script>
+	<script src="/static/jslib/popper.min.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="/static/css/theme.css">
+	<link rel="stylesheet" href="/static/css/tree.css">
+
+	<script src="/static/js/jspython.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<section id="blobs" class="col-md-3">
+				<ul id="blobs-list"></ul>
+			</section>
+		</div>
+	</div>
+	<script>
+		var blob_list = $("#blobs-list")[0];
+
+		function DisplayFiles (files, dirs, hidden_files, hidden_dirs) {
+			var html = "";
+
+			html += "<li class='parent'>.. (Parent Folder)</li>"
+
+			files = files.concat(hidden_files);
+			dirs = dirs.concat(hidden_dirs);
+
+			$.each(dirs, function (_, dir) {
+				html += `<li class="dir">${dir}</li>`
+			});
+
+			$.each(files, function (_, file) {
+				html += `<li>${file}</li>`
+			});
+
+			blob_list.innerHTML = html;
+		}
+
+		var files = "{{ "/".join(files) }}".split("/");
+		var dirs = "{{ "/".join(dirs) }}".split("/");
+		var hidden_files = "{{ "/".join(hidden_files) }}".split("/");
+		var hidden_dirs = "{{ "/".join(hidden_dirs) }}".split("/");
+		files.remove("");
+		dirs.remove("");
+		hidden_files.remove("");
+		hidden_dirs.remove("");
+
+		DisplayFiles(files, dirs, hidden_files, hidden_dirs)
+	</script>
+</body>
+</html>

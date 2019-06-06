@@ -1,0 +1,23 @@
+section#blobs {
+	background: #393e46;
+	padding: 15px;
+}
+
+section#blobs ul {
+	padding: 0;
+	margin: 0;
+}
+
+section#blobs ul li {
+	display: block;
+	list-style: none;
+	font-size: 20px;
+	cursor: pointer;
+
+	width: 100%;
+	padding: 5px;
+}
+
+section#blobs ul li:hover {
+	background: #40464f;
+}
