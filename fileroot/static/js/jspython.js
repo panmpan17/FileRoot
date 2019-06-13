@@ -20,6 +20,13 @@ String.prototype.format = function() {
 
 	return new_text;
 }
+String.prototype.remove = function (str) {
+	return this.replace(new RegExp(str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "g"), "");
+}
+String.prototype.rreplace = function (from, to) {
+	return this.replace(new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "g"), to);
+}
+
 str = String;
 
 // 

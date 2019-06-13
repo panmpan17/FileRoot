@@ -16,34 +16,24 @@
 	<script src="/static/js/jspython.js"></script>
 </head>
 <body>
+	<header class="container-fluid">
+		<button type="button" class="btn btn-outline-light">
+			<i class="fas fa-sort-left"></i>
+		</button>
+	</header>
 	<div class="container-fluid">
 		<div class="row">
 			<section id="blobs" class="col-md-3">
+				<ul>
+					<li id="parent" onclick="GoToParentDir()">..</li>
+				</ul>
 				<ul id="blobs-list"></ul>
 			</section>
 		</div>
 	</div>
 	<script>
 		var blob_list = $("#blobs-list")[0];
-
-		function DisplayFiles (files, dirs, hidden_files, hidden_dirs) {
-			var html = "";
-
-			html += "<li class='parent'>.. (Parent Folder)</li>"
-
-			files = files.concat(hidden_files);
-			dirs = dirs.concat(hidden_dirs);
-
-			$.each(dirs, function (_, dir) {
-				html += `<li class="dir">${dir}</li>`
-			});
-
-			$.each(files, function (_, file) {
-				html += `<li>${file}</li>`
-			});
-
-			blob_list.innerHTML = html;
-		}
+		var path;
 
 		var files = "{{ "/".join(files) }}".split("/");
 		var dirs = "{{ "/".join(dirs) }}".split("/");
@@ -54,7 +44,7 @@
 		hidden_files.remove("");
 		hidden_dirs.remove("");
 
-		DisplayFiles(files, dirs, hidden_files, hidden_dirs)
 	</script>
+	<script src="/static/js/tree.js"></script>
 </body>
 </html>

@@ -16,8 +16,26 @@ section#blobs ul li {
 
 	width: 100%;
 	padding: 5px;
+
+	overflow: scroll;
 }
 
 section#blobs ul li:hover {
 	background: #40464f;
+}
+
+section#blobs ul li#parent {
+	color: #ffc46b;
+}
+
+section#blobs ul li.dir {
+	color: #366ed8;
+}
+
+
+/*section#blobs ul li.file*/
+
+header {
+	background: #293462;
+	padding: 10px;
 }

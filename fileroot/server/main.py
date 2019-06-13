@@ -1,7 +1,8 @@
 import os
 import cherrypy
 
-from .render import IndexHandler
+from . import render
+from . import rest
 
 
 class Server:
@@ -33,13 +34,24 @@ class Server:
 
         cls.config["tools.force_https.on"] = config.force_https
 
+    def register_render_handler(self):
+        for handler in render.__all__:
+            handler_class = getattr(render, handler)
+            cherrypy.tree.mount(handler_class(), handler_class._path,
+                                config=Server.static_config)
+
+    def register_rest_view(self):
+        for view in rest.__all__:
+            view_class = getattr(rest, view)
+            cherrypy.tree.mount(view_class(), "/rest/" + view_class._path)
+
     def start(self):
         ####
         # TODO: subscribe plugin and tool
         ####
 
-        cherrypy.tree.mount(IndexHandler(), IndexHandler._path,
-                            config=Server.static_config)
+        self.register_render_handler()
+        self.register_rest_view()
 
         cherrypy.config.update(Server.config)
         cherrypy.engine.start()
